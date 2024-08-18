@@ -1,10 +1,8 @@
 from abc import ABC, abstractmethod
-from cgitb import reset
-
 
 class VacancyBase(ABC):
     """ Represents a Vacancy """
-    __slots__ = ('name', 'url', 'salary_from', 'salary_to')
+    __slots__ = ('name', 'url', 'salary_from', 'salary_to', 'salary_currency')
     # MAGIC METHODS
     @abstractmethod
     def __eq__(self, other):
@@ -33,5 +31,5 @@ class VacancyBase(ABC):
     # CLASSMETHODS
     @classmethod
     @abstractmethod
-    def cast_to_object_list(cls, vacancies: list[str,...]) -> list[object, ...]:
+    def cast_to_object_list(cls, vacancies: list[dict]) -> list[object]:
         pass
