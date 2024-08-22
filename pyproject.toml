@@ -2,25 +2,23 @@
 name = "hh-searcher"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Georgii Ovechkin <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
 
 
-[tool.poetry.group.test.dependencies]
-pytest = "^8.3.2"
-pytest-cov = "^5.0.0"
-
-
 [tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+pytest-cov = "^5.0.0"
 requests = "^2.32.3"
+types-requests = "^2.32.0.20240712"
 
 
 [tool.poetry.group.lint.dependencies]
-flake8 = "^7.1.1"
-black = "^24.8.0"
+flake8 = "^7.0.0"
+black = "^24.4.2"
 isort = "^5.13.2"
 mypy = "^1.11.1"
 
