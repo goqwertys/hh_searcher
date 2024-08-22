@@ -68,7 +68,7 @@ class Vacancy(VacancyBase):
         return f'{self.__class__.__name__} ({self.salary_from}-{self.salary_to} {self.salary_currency}) url: {self.url}'
 
     @classmethod
-    def cast_to_object_list(cls, vacancies: list[str,dict]) -> list:
+    def cast_to_object_list(cls, vacancies: list[str, dict]) -> list:
         """
         Return list of Vacancy objects from list of JSON vacancy info
         :param vacancies: data in JSONFormat
