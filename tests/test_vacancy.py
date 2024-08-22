@@ -1,3 +1,5 @@
+import pytest
+
 from src.vacancy import Vacancy
 
 def test_vacancy_initialization(vacancy_1):
@@ -12,15 +14,22 @@ def test_vacancy_equality(vacancy_1, vacancy_2, vacancy_3, vacancy_4):
     assert vacancy_1 != vacancy_3
     assert vacancy_1 != vacancy_4
 
-def test_vacancy_comparison(vacancy_1, vacancy_2, vacancy_3):
+def test_vacancy_equality_exception(vacancy_4, vacancy_5):
+    with pytest.raises(
+            ValueError,
+            match='Comparison of vacancies with salaries in different currencies is not yet provided'
+    ):
+        _ = vacancy_4 == vacancy_5
 
-    assert vacancy_1 < vacancy_2
+def test_vacancy_comparison(vacancy_1, vacancy_2, vacancy_3, vacancy_4):
+
+    assert vacancy_1 < vacancy_4
     assert vacancy_1 <= vacancy_2
-    assert vacancy_2 > vacancy_1
+    assert vacancy_4 > vacancy_1
     assert vacancy_2 >= vacancy_1
-    assert not vacancy_1 < vacancy_3
-    assert not vacancy_1 <= vacancy_3
-    assert not vacancy_1 > vacancy_3
+    assert not vacancy_4 < vacancy_1
+    assert not vacancy_3 <= vacancy_1
+    assert not vacancy_3 > vacancy_4
     assert not vacancy_1 >= vacancy_3
 
 def test_cast_to_object_list():

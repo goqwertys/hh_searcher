@@ -1,5 +1,3 @@
-from mypy.checkpattern import self_match_type_names
-
 from src.vacancy_base import VacancyBase
 
 class Vacancy(VacancyBase):
