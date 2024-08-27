@@ -53,7 +53,9 @@ class VacancyContainer(Container):
 
     def filtered_by(self, keyword: str):
         """ Filters data by keyword"""
-        filtered_items = [item for item in self._items if any(keyword in str(value) for value in item.__dict__.values())]
+        filtered_items = [item for item in self._items if
+                          any(keyword in str(getattr(item, attr)) for attr in item.__slots__)]
+        print(f"Filtered items: {filtered_items}")
         return VacancyContainer(filtered_items)
 
     def ranged(self):

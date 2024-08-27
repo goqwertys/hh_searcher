@@ -14,7 +14,7 @@ def test_remove_item(vacancy_list, vacancy_container):
     assert vacancy_to_remove not in vacancy_container
 
 def test_filtered_by(vacancy_container, vacancy_list):
-    filtered_container = vacancy_container.filtered_by("Developer")
+    filtered_container = vacancy_container.filtered_by("Dev")
     assert len(filtered_container) == 1
     assert filtered_container._items[0].name == "Developer"
 

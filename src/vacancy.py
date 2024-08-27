@@ -2,7 +2,7 @@ from src.vacancy_base import VacancyBase
 
 class Vacancy(VacancyBase):
     """ Represents a vacancy """
-    __slots__ = ()
+    __slots__ = ('name', 'url', 'salary_from', 'salary_to', 'salary_currency')
 
     def __init__(self,
                  name: str,
