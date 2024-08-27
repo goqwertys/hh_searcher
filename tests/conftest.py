@@ -1,6 +1,10 @@
 import pytest
 
 from src.vacancy import Vacancy
+from src.vacancy_container import VacancyContainer
+
+
+# VACANCY TEST
 @pytest.fixture
 def vacancy_1():
     return  Vacancy(
@@ -53,3 +57,16 @@ def vacancy_5():
         11000,
         'EUR'
     )
+
+# VACANCY CONTAINER
+@pytest.fixture
+def vacancy_list():
+    return [
+        Vacancy("Developer", "http://example.com/1", 50000, 70000, "USD"),
+        Vacancy("Designer", "http://example.com/2", 40000, 60000, "USD"),
+        Vacancy("Manager", "http://example.com/3", 60000, 80000, "USD")
+    ]
+
+@pytest.fixture
+def vacancy_container(vacancy_list):
+    return VacancyContainer(vacancy_list)
