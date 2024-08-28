@@ -21,10 +21,11 @@ class Vacancy(VacancyBase):
     def __eq__(self, other):
         if not isinstance(other, Vacancy):
             raise TypeError('Incorrect type for comparison')
-        else:
-            if self.salary_currency == other.salary_currency:
-                return self.salary_from == other.salary_from
-            raise ValueError('Comparison of vacancies with salaries in different currencies is not yet provided')
+        return (self.name == other.name and
+                self.url == other.url and
+                self.salary_currency == other.salary_currency and
+                self.salary_from == other.salary_from and
+                self.salary_to == other.salary_to)
 
     def __lt__(self, other):
         if not isinstance(other, Vacancy):

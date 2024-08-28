@@ -10,16 +10,9 @@ def test_vacancy_initialization(vacancy_1):
     assert vacancy_1.salary_currency == "USD"
 
 def test_vacancy_equality(vacancy_1, vacancy_2, vacancy_3, vacancy_4):
-    assert vacancy_1 == vacancy_2
-    assert vacancy_1 != vacancy_3
-    assert vacancy_1 != vacancy_4
+    assert vacancy_1 == vacancy_1
+    assert vacancy_1 != vacancy_2
 
-def test_vacancy_equality_exception(vacancy_4, vacancy_5):
-    with pytest.raises(
-            ValueError,
-            match='Comparison of vacancies with salaries in different currencies is not yet provided'
-    ):
-        _ = vacancy_4 == vacancy_5
 
 def test_vacancy_comparison(vacancy_1, vacancy_2, vacancy_3, vacancy_4):
 
