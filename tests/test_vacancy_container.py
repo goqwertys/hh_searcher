@@ -39,3 +39,10 @@ def test_from_list():
     assert len(new_container) == 2
     assert new_container._items[0].name == "Tester"
     assert new_container._items[1].name == "Analyst"
+
+
+def test_vacancy_container_eq(vacancy_container, vacancy_list):
+    equal_container = VacancyContainer(vacancy_list)
+    non_equal_container = VacancyContainer(vacancy_list[::-1])
+    assert vacancy_container == equal_container
+    assert vacancy_container != non_equal_container
