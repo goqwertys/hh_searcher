@@ -4,6 +4,7 @@ from requests import Response
 
 
 class APIClient(ABC):
+    """ Abstract API client """
     @abstractmethod
-    def get(self, endpoint: str, params: dict | None = None, headers: dict | None = None) -> Response:
+    def get_info(self):
         pass
