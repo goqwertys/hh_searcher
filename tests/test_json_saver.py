@@ -12,6 +12,5 @@ def test_add_vacancy(json_saver, vacancy, temp_file):
     with open(temp_file.name, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    assert vacancy.__dict__ in data
-
-
+    vacancy_dict = {attr: getattr(vacancy, attr) for attr in vacancy.__slots__}
+    assert vacancy_dict in data

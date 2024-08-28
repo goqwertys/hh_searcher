@@ -100,10 +100,9 @@ def temp_file():
 
 @pytest.fixture
 def json_saver(temp_file):
-    return JSONSaver(temp_file().name)
+    return JSONSaver(temp_file.name)
 
 
-@pytest.fixture
 @pytest.fixture
 def vacancy():
     return Vacancy(
