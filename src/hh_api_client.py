@@ -4,17 +4,29 @@ from src.api_client import APIClient
 
 
 class HHAPIClient(APIClient):
-    def __init__(self, file_worker):
-        self.url = ''
+    """ Represents client to fetch data from hh.ru """
+    BASE_URL = 'https://api.hh.ru/vacancies'
+
+    def __init__(self):
         self.headers = {'User-Agent': 'HH-User-Agent'}
         self.params = {'text': '', 'page': 0, 'per_page': 100}
         self.vacancies = []
-        super().__init__(file_worker)
 
-    def load_vacancies(self, keyword):
+    def load_vacancies(self, keyword: str):
         self.params['text'] = keyword
-        while self.params.get('page') != 20:
-            response = requests.get(self.url, headers=self.headers, params=self.params)
-            vacancies = response.json()['items']
-            self.vacancies.extend(vacancies)
-            self.params['page'] += 1
+        while True:
+            try:
+                response = requests.get(self.BASE_URL, headers=self.headers, params=self.params)
+                response.raise_for_status()  # Raise an error for bad status codes
+                data = response.json()
+                vacancies = data['items']
+                self.vacancies.extend(vacancies)
+                if self.params['page'] >= data['pages'] - 1:
+                    break
+                self.params['page'] += 1
+            except requests.RequestException as e:
+                print(f"Error fetching page {self.params['page']}: {e}")
+                break  # Exit the loop on error
+
+    def get_info(self):
+        return self.vacancies

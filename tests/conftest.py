@@ -70,3 +70,14 @@ def vacancy_list():
 @pytest.fixture
 def vacancy_container(vacancy_list):
     return VacancyContainer(vacancy_list)
+
+
+# HH API CLIENT
+
+import pytest
+import requests_mock
+
+@pytest.fixture
+def mock_requests():
+    with requests_mock.Mocker() as m:
+        yield m
