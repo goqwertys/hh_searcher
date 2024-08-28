@@ -29,22 +29,34 @@ class VacancyContainer(Container):
             raise ValueError(f'Item {repr(item)} not found in the container')
 
     # MAGIC METHODS
+    def __eq__(self, other):
+        """ Compare two VacancyContainer objects for equality """
+        if not isinstance(other, VacancyContainer):
+            return False
+        return self._items == other._items
+
     def __iter__(self):
+        """ Returns iterator from items """
         return iter(self._items)
 
     def __len__(self):
+        """ Returns length of contained items"""
         return len(self._items)
 
     def __contains__(self, item):
+        """ Check if an item is in a container """
         return item in self._items
 
     def __str__(self):
+        """ Returns a string representation of an object """
         return f'{self.__class__.__name__}: contains {len(self)} vacancies'
 
     def __repr__(self):
+        """ Returns an official string representation of an object """
         return str(self)
 
     def from_list(self, vacancies: list[Vacancy]):
+        """ Construct container from list of objects """
         if all(isinstance(vacancy, Vacancy) for vacancy in vacancies):
             for vacancy in vacancies:
                 self.add_item(vacancy)
