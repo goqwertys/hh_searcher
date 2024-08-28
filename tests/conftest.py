@@ -1,5 +1,9 @@
+from tempfile import NamedTemporaryFile
+from tkinter.ttk import Label
+
 import pytest
 
+from src.json_saver import JSONSaver
 from src.vacancy import Vacancy
 from src.vacancy_container import VacancyContainer
 
@@ -81,3 +85,31 @@ import requests_mock
 def mock_requests():
     with requests_mock.Mocker() as m:
         yield m
+
+
+# JSONSaver TESTS
+
+@pytest.fixture
+def temp_file():
+    temp_file = NamedTemporaryFile(delete=False, mode='w+t', encoding='utf-8')
+    temp_file.write('[]')
+    temp_file.seek(0)
+    yield temp_file
+    temp_file.close()
+
+
+@pytest.fixture
+def json_saver(temp_file):
+    return JSONSaver(temp_file().name)
+
+
+@pytest.fixture
+@pytest.fixture
+def vacancy():
+    return Vacancy(
+        name="Python Developer",
+        url="http://example.com/job/1",
+        salary_from=5000,
+        salary_to=6000,
+        salary_currency="USD"
+    )
