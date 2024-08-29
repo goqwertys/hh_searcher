@@ -30,4 +30,13 @@ class JSONSaver(VacancySaver):
         return VacancyContainer(vacancy_list)
 
     def delete_vacancy(self, vacancy: Vacancy):
-        pass
+        """ Removes vacancy from .json file"""
+        with open(self.filename, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        vacancy_dict = {attr: getattr(vacancy, attr) for attr in vacancy.__slots__}
+
+        data = [item for item in data if item != vacancy_dict]
+
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=4)
