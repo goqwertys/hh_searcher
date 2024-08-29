@@ -20,6 +20,13 @@ def test_get_vacancies(vacancy_1, vacancy_2, json_saver):
     json_saver.add_vacancy(vacancy_1)
     json_saver.add_vacancy(vacancy_2)
 
+    result_container = json_saver.get_vacancies()
     expected_container = VacancyContainer([vacancy_1, vacancy_2])
 
-    assert json_saver.get_vacancies() == expected_container
+    # DEBUG PRINT
+    print("expected container:")
+    print(expected_container)
+    print("result container:")
+    print(result_container)
+
+    assert result_container == expected_container

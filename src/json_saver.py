@@ -14,7 +14,7 @@ class JSONSaver(VacancySaver):
         with open(self.filename, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
-        # using getattr bc Vacancy described with __slots__
+        # using getattr
         vacancy_dict = {attr: getattr(vacancy, attr) for attr in vacancy.__slots__}
         data.append(vacancy_dict)
 

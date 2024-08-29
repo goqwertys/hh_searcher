@@ -49,11 +49,14 @@ class VacancyContainer(Container):
 
     def __str__(self):
         """ Returns a string representation of an object """
-        return f'{self.__class__.__name__}: contains {len(self)} vacancies'
+        result = ['******************************']
+        result.extend([str(item) for item in self._items])
+        result.append(result[0])
+        return '\n------------------------------\n'.join(result)
 
     def __repr__(self):
         """ Returns an official string representation of an object """
-        return str(self)
+        return f'{self.__class__.__name__}: contains {len(self)} vacancies'
 
     def from_list(self, vacancies: list[Vacancy]):
         """ Construct container from list of objects """
