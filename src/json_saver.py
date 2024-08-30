@@ -1,4 +1,5 @@
 import json
+import os
 
 from src.vacancy import Vacancy
 from src.vacancy_container import VacancyContainer
@@ -8,6 +9,18 @@ from src.vacancy_saver import VacancySaver
 class JSONSaver(VacancySaver):
     def __init__(self, filename: str):
         self.filename = filename
+        self._ensure_file_exists()
+
+    def _ensure_file_exists(self):
+        if not os.path.exists(self.filename):
+            with open(self.filename, 'w', encoding='utf-8') as f:
+                json.dump([], f, ensure_ascii=False, indent=4)
+        else:
+            with open(self.filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if not isinstance(data, list) or data != []:
+                    with open(self.filename, 'w', encoding='utf-8') as f:
+                        json.dump([], f, ensure_ascii=False, indent=4)
 
     def add_vacancy(self, vacancy: Vacancy):
         """ Adds vacancy to file """
