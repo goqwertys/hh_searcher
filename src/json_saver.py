@@ -22,6 +22,7 @@ class JSONSaver(VacancySaver):
             json.dump(data, f, ensure_ascii=False, indent=4)
 
     def get_vacancies(self):
+        """ Returns all data as a container """
         with open(self.filename, 'r', encoding='utf-8') as f:
             data = json.load(f)
 
@@ -40,3 +41,20 @@ class JSONSaver(VacancySaver):
 
         with open(self.filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
+
+    def container_extend(self, container: VacancyContainer):
+        """ Allows to extend file with a whole container """
+        with open(self.filename, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+
+        for vacancy in container.get_list():
+            vacancy_dict = {attr: getattr(vacancy, attr) for attr in vacancy.__slots__}
+
+            data.append(vacancy_dict)
+
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def purge_all(self):
+        with open(self.filename, 'w', encoding='utf-8') as f:
+            json.dump([], f, ensure_ascii=False, indent=4)

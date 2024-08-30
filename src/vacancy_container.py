@@ -58,6 +58,10 @@ class VacancyContainer(Container):
         """ Returns an official string representation of an object """
         return f'{self.__class__.__name__}: contains {len(self)} vacancies'
 
+    def get_list(self):
+        """ Returns items as list """
+        return self._items
+
     def from_list(self, vacancies: list[Vacancy]):
         """ Construct container from list of objects """
         if all(isinstance(vacancy, Vacancy) for vacancy in vacancies):
