@@ -60,28 +60,37 @@ class Vacancy(VacancyBase):
             raise ValueError('Comparison of vacancies with salaries in different currencies is not yet provided')
 
     def __str__(self):
-        return f'{self.__class__.__name__} ({self.salary_from}-{self.salary_to} {self.salary_currency}) url: {self.url}'
-
+        # return f'{self.__class__.__name__} ({self.salary_from}-{self.salary_to} {self.salary_currency}) url: {self.url}'
+        return f"Name: {self.name}\nURL: {self.url}\nSalary: {self.salary_from} - {self.salary_to} {self.salary_currency}"
 
     def __repr__(self):
         return f'{self.__class__.__name__} ({self.salary_from}-{self.salary_to} {self.salary_currency}) url: {self.url}'
 
     @classmethod
-    def cast_to_object_list(cls, vacancies: list[str, dict]) -> list:
+    def cast_to_object_list(cls, vacancies: list[dict]) -> list:
         """
         Return list of Vacancy objects from list of JSON vacancy info
         :param vacancies: data in JSONFormat
         :return: list of Vacancy objects
         :param vacancies:
-        :return:
+        :return: list of Vacancy objects
         """
         result = []
         for vacancy in vacancies:
+            # GET NAME AND URL
             name = vacancy.get('name', 'Untitled')
             url = vacancy.get('url', 'URL not found')
-            salary_from = cls.valid_value(vacancy.get('salary', {'from': 0}).get('from'))
-            salary_to = cls.valid_value(vacancy.get('salary', {'to': 0}).get('to'))
-            salary_currency = cls.valid_str(vacancy.get('salary', {'currency': 'USD'}).get('currency'))
+
+            # GET SALARY
+            if vacancy.get('salary'):
+                salary_from = cls.valid_value(vacancy.get('salary', {'from': 0}).get('from'))
+                salary_to = cls.valid_value(vacancy.get('salary', {'to': 0}).get('to'))
+                salary_currency = cls.valid_str(vacancy.get('salary', {'currency': 'USD'}).get('currency'))
+            else:
+                salary_from = cls.valid_value(vacancy.get('salary_from', 0))
+                salary_to = cls.valid_value(vacancy.get('salary_to', 0))
+                salary_currency = cls.valid_str(vacancy.get('salary_currency', 'Unknown'))
+
             vacancy_obj = cls(name, url, salary_from, salary_to, salary_currency)
             result.append(vacancy_obj)
         return result
