@@ -1,4 +1,5 @@
 import json
+
 from src.json_saver import JSONSaver
 
 from src.vacancy import Vacancy
@@ -42,5 +43,27 @@ def test_delete_vacancy(vacancy_1, vacancy_2, vacancy_3, json_saver):
     expected_container = VacancyContainer([vacancy_1, vacancy_2])
 
     result_container = json_saver.get_vacancies()
+
+    assert result_container == expected_container
+
+
+def test_container_extend(vacancy_1, vacancy_2, vacancy_3, json_saver):
+    container = VacancyContainer([vacancy_1, vacancy_2, vacancy_3])
+    json_saver.container_extend(container)
+
+    result_container = json_saver.get_vacancies()
+    expected_container = VacancyContainer([vacancy_1, vacancy_2, vacancy_3])
+
+    assert result_container == expected_container
+
+
+def test_purge_all(vacancy_1, vacancy_2, json_saver):
+    json_saver.add_vacancy(vacancy_1)
+    json_saver.add_vacancy(vacancy_2)
+
+    json_saver.purge_all()
+
+    result_container = json_saver.get_vacancies()
+    expected_container = VacancyContainer([])
 
     assert result_container == expected_container
